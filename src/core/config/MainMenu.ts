@@ -2,7 +2,13 @@ const MainMenuConfig: Array<any> = [
     {
         title: "Dashboard",
         fontIcon: "bi-app-indicator",
-        route: 'dashboard',
+        sub: [
+            {
+                title: "Dashboard",
+                fontIcon: "bi-app-indicator",
+                route: "dashboard",
+            }
+        ]
     },
 ];
 
