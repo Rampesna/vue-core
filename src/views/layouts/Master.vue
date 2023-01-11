@@ -15,7 +15,7 @@
 
                 </div>
 
-                <Footer />
+
             </div>
         </div>
     </div>
@@ -26,11 +26,10 @@
 
 import {defineComponent} from "vue";
 import Sidebar from "@/views/layouts/Sidebar.vue";
-import Footer from "@/views/layouts/Footer.vue";
 import Header from "@/views/layouts/Header.vue";
 
 export default defineComponent({
-    components: {Header, Footer, Sidebar}
+    components: {Header,  Sidebar}
 })
 </script>
 
