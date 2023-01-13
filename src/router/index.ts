@@ -13,7 +13,7 @@ const router = createRouter({
             component: AuthView,
             children:[
                 {
-                    path: 'login/login',
+                    path: 'auth/login',
                     name: 'login',
                     component: LoginView,
                 }
@@ -24,7 +24,7 @@ const router = createRouter({
             component: MasterView,
             children:[
                 {
-                    path: '/x/dashboard',
+                    path: '/dashboard',
                     name: 'dashboard',
                     component: DashboardView,
                 }
