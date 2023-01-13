@@ -38,7 +38,8 @@
                                         <img alt="Logo" :src="getAssetPath('assets/media/avatars/300-1.jpg')" />
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <div class="fw-bolder d-flex align-items-center fs-5">Talha Can
+                                        <div class="fw-bolder d-flex align-items-center fs-5">
+                                            <span>{{ authStore.user }}</span>
                                             <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Online</span></div>
                                         <a href="#" class="fw-bold text-muted text-hover-primary fs-7">talha.can@ihotyas.com</a>
                                     </div>
@@ -82,7 +83,13 @@ export default {
             useAuthStore().logout();
             this.$router.push({ name: "login" });
         },
-    }
+    },
+    setup() {
+        const authStore = useAuthStore();
+        return {
+            authStore,
+        };
+    },
 }
 
 </script>

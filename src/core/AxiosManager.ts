@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const token = localStorage.getItem('_token');
+import TokenService from "@/services/TokenService";
 
 const AxiosManager = axios.create({
     timeout: 1000,
@@ -13,7 +12,7 @@ const AxiosManager = axios.create({
 AxiosManager.interceptors.request.use(
     config => {
         // @ts-ignore
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${TokenService.getToken()}`;
         return config;
     }
 );

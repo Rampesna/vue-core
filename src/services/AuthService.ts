@@ -23,6 +23,22 @@ class AuthService implements IAuthService {
         );
     }
 
+    // @ts-ignore
+    async getProfile(): ServiceResponse {
+        let response = await AxiosManager.get(ApiEndpoints.GET_PROFILE);
+
+        return new ServiceResponse(
+            // @ts-ignore
+            response.coreResponse.isSuccess,
+            // @ts-ignore
+            response.coreResponse.message,
+            // @ts-ignore
+            response.coreResponse.data,
+            // @ts-ignore
+            response.coreResponse.statusCode
+        );
+    }
+
     passwordReset(username: string): ServiceResponse {
         return new ServiceResponse(true, "Password reset successful", null, 200);
     }
