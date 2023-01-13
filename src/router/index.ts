@@ -14,6 +14,9 @@ const router = createRouter({
         {
             path: '/',
             component: AuthView,
+            meta: {
+                redirectIfAuth: true,
+            },
             children: [
                 {
                     path: 'auth/login',
@@ -48,8 +51,12 @@ router.beforeEach((to, from, next) => {
         } else {
             next({name: "login"});
         }
-    } else {
-        next();
+    } else if (to.meta.redirectIfAuth) {
+        if (authStore.isAuthenticated) {
+            next({name: "dashboard"});
+        } else {
+            next();
+        }
     }
 });
 

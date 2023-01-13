@@ -27,6 +27,13 @@ export const useAuthStore = defineStore("auth", () => {
         errors.value = {...error};
     }
 
+    function purgeAuth() {
+        isAuthenticated.value = false;
+        user.value = {} as User;
+        errors.value = [];
+        TokenService.destroyToken();
+    }
+
     function login(credentials: User) {
         let response = AuthService.login(credentials.email, credentials.password);
         if (response.success) {
@@ -34,10 +41,15 @@ export const useAuthStore = defineStore("auth", () => {
         }
     }
 
+    function logout() {
+        purgeAuth();
+    }
+
     return {
         errors,
         user,
         isAuthenticated,
         login,
+        logout,
     };
 });
