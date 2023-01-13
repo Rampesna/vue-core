@@ -26,11 +26,19 @@
 <script>
 
 
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import Sidebar from "@/views/layouts/Sidebar.vue";
 import Header from "@/views/layouts/Header.vue";
+import {useAuthStore} from "@/stores/auth";
 
 export default defineComponent({
-    components: {Header,  Sidebar}
+    components: {
+        Header,
+        Sidebar
+    },
+    setup() {
+        const authStore = useAuthStore();
+        return { authStore };
+    },
 })
 </script>
