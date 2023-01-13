@@ -1,5 +1,5 @@
 <template>
-<router-view></router-view>
+    <RouterView />
 </template>
 
 <script>
@@ -10,9 +10,7 @@ import {loadScript} from "vue-plugin-load-script";
 
 export default {
     name: "App",
-
 };
-
 
 
 </script>
