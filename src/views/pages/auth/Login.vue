@@ -1,7 +1,6 @@
 <template>
     <div class="d-flex flex-column flex-root">
         <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed">
-
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
                 <a href="" class="mb-12">
                     <img alt="Logo" src="http://ots.ayssoft.com/assets/media/logos/favicon.png" class="h-75px">
@@ -35,6 +34,7 @@
 
 import AuthService from "@/services/AuthService";
 import TokenService from "@/services/TokenService";
+import {useAuthStore} from "@/stores/auth";
 
 export default {
     name: "Login",
@@ -51,13 +51,20 @@ export default {
             } else if (!this.password) {
                 toastr.warning('Lütfen şifrenizi giriniz.');
             } else {
-                const response = await AuthService.login(this.email, this.password);
-                if (response.Success) {
-                    TokenService.saveToken(response.Data);
+                const loginResponse = await AuthService.login(this.email, this.password);
+                if (loginResponse.Success) {
+                    TokenService.saveToken(loginResponse.Data);
+                    const getProfileResponse = await AuthService.getProfile();
+                    useAuthStore().setAuth({
+                        name: getProfileResponse.Data.name,
+                        email: getProfileResponse.Data.email,
+                        password: getProfileResponse.Data.password,
+                        _token: loginResponse.Data,
+                    });
                     window.location.href = "/dashboard";
                 } else {
-                    if (response.Status === 422) {
-                        response.Data.forEach((item) => {
+                    if (loginResponse.Status === 422) {
+                        loginResponse.Data.forEach((item) => {
                             toastr.error(item.message);
                         });
                     } else {

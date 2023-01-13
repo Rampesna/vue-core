@@ -5,10 +5,9 @@ import AuthService from "@/services/AuthService";
 
 export interface User {
     name: string;
-    surname: string;
     email: string;
     password: string;
-    api_token: string;
+    _token: string;
 }
 
 export const useAuthStore = defineStore("auth", () => {
@@ -20,7 +19,10 @@ export const useAuthStore = defineStore("auth", () => {
         isAuthenticated.value = true;
         user.value = authUser;
         errors.value = {};
-        TokenService.saveToken(user.value.api_token);
+    }
+
+    function getAuth() {
+        return user;
     }
 
     function setError(error: any) {
@@ -51,5 +53,6 @@ export const useAuthStore = defineStore("auth", () => {
         isAuthenticated,
         login,
         logout,
+        setAuth,
     };
 });
