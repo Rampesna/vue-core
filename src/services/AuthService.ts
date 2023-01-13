@@ -13,13 +13,13 @@ class AuthService implements IAuthService {
 
         return new ServiceResponse(
             // @ts-ignore
-            response.isSuccess,
+            response.coreResponse.isSuccess,
             // @ts-ignore
-            response.message,
+            response.coreResponse.message,
             // @ts-ignore
-            response.data,
+            response.coreResponse.data,
             // @ts-ignore
-            response.statusCode
+            response.coreResponse.statusCode
         );
     }
 
