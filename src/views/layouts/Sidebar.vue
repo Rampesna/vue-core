@@ -73,7 +73,7 @@
 
 <script>
 
-import MainMenuConfig from "@/core/config/MainMenu";
+import MainMenuConfig from "@/config/MainMenu";
 
 export default {
     name: "Aside",

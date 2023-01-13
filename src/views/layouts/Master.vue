@@ -10,9 +10,11 @@
                 <Header />
 
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-
-                    <router-view></router-view>
-
+                    <div class="post d-flex flex-column-fluid" id="kt_post">
+                        <div id="kt_content_container" class="container-fluid">
+                            <router-view></router-view>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -32,5 +34,3 @@ export default defineComponent({
     components: {Header,  Sidebar}
 })
 </script>
-
-
