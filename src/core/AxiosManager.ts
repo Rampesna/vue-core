@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('token') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjk1ODNjYzE3OWYxNTZjZTk3OTlkNCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwibmFtZSI6IkFkbWluIiwiaWF0IjoxNjczMjU1MjMyfQ.gTxGc4hLMl9xtgRA8ftMWDo1icMLTkHNoGM7E4ecRdc';
+const token = localStorage.getItem('_token');
 
 const AxiosManager = axios.create({
     timeout: 1000,
@@ -21,7 +21,12 @@ AxiosManager.interceptors.request.use(
 AxiosManager.interceptors.response.use(
     response => {
         // @ts-ignore
-        return response.status === 200 ? response.data : response.response.data;
+        response.coreResponse = response.data;
+        return response;
+    },
+    error => {
+        error.coreResponse = error.response.data;
+        return error;
     }
 );
 
