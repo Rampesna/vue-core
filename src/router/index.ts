@@ -6,7 +6,7 @@ import {
 import { useAuthStore } from "@/stores/auth";
 import { useConfigStore } from "@/stores/config";
 
-const routes: Array<RouteRecordRaw> = [
+const routes=[
   {
     path: "/",
     redirect: "/dashboard",
@@ -32,12 +32,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/layouts/AuthLayout.vue"),
     children: [
       {
-        path: "/sign-in",
-        name: "sign-in",
+        path: "/login",
+        name: "login",
         component: () =>
           import("@/views/auth/Login.vue"),
         meta: {
-          pageTitle: "Sign In",
+          pageTitle: "Giriş Yap",
+          redirectIfLoggedIn: true,
         },
       },
       {
@@ -99,7 +100,7 @@ router.beforeEach((to, from, next) => {
   const configStore = useConfigStore();
 
   // current page view title
-  document.title = `${to.meta.pageTitle} - ${import.meta.env.VITE_APP_NAME}`;
+  document.title = `${to.meta.pageTitle}`;
 
   // reset config to initial state
   configStore.resetLayoutConfig();
@@ -112,7 +113,13 @@ router.beforeEach((to, from, next) => {
     if (authStore.isAuthenticated) {
       next();
     } else {
-      next({ name: "sign-in" });
+      next({ name: "login" });
+    }
+  }else if(to.meta.redirectIfLoggedIn){
+    if (authStore.isAuthenticated) {
+      next({ name: "dashboard" });
+    } else {
+      next();
     }
   } else {
     next();
