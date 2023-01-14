@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel
-        by Keenthemes</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" href="src/assets/media/logos/favicon.ico" class="css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
-
+  <meta charset="UTF-8">
+  <meta name="description" content="Metronic Vue Demo" />
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
+  <link rel="stylesheet" href="/splash-screen.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metronic | Vue Demo</title>
 </head>
-<body id="kt_body"
-      class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"
-      style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-<div id="app">
 
-</div>
+<body class="page-loading">
+    <!--begin::Theme mode setup on page load-->
+    <script>
+        if (document.documentElement) {
+            var defaultThemeMode = "system";
 
-<script type="module" src="./src/main.ts" class="script"></script>
-<script src="./src/assets/plugins/global/plugins.bundle.js"></script>
-<script src="./src/assets/js/scripts.bundle.js"></script>
+            var themeMode = localStorage.getItem("kt_theme_mode_value");
+            if (!themeMode) {
+                if (defaultThemeMode === "system") {
+                    themeMode =
+                        window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
 
+            document.documentElement.setAttribute("data-theme", themeMode);
+        }
+    </script>
+    <!--end::Theme mode setup on page load-->
+  <div id="app"></div>
+  <!--begin::Loading markup-->
+  <div id="splash-screen" class="splash-screen">
+    <img src="/media/logos/default-small.svg" alt="Metronic logo" />
+    <span>Loading ...</span>
+  </div>
+  <!--end::Loading markup-->
+  <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>
