@@ -1,12 +1,12 @@
-import ServiceResponse from "@/core/ServiceResponse";
+import ServiceResponse from "@/core/helpers/ServiceResponse";
 import type IAuthService from "@/interfaces/IAuthService";
-import AxiosManager from "@/core/AxiosManager";
-import ApiEndpoints from "@/config/ApiEndpoints";
+import ApiEndpoints from "@/core/config/ApiEndpoints";
+import ApiService from "@/core/services/ApiService";
 
 class AuthService implements IAuthService {
     // @ts-ignore
     async login(email: string, password: string): ServiceResponse {
-        let response = await AxiosManager.post(ApiEndpoints.LOGIN, {
+        let response = await ApiService.post(ApiEndpoints.LOGIN, {
             email: email,
             password: password,
         });
@@ -25,7 +25,8 @@ class AuthService implements IAuthService {
 
     // @ts-ignore
     async getProfile(): ServiceResponse {
-        let response = await AxiosManager.get(ApiEndpoints.GET_PROFILE);
+        ApiService.setHeader();
+        let response = await ApiService.get(ApiEndpoints.GET_PROFILE);
 
         return new ServiceResponse(
             // @ts-ignore

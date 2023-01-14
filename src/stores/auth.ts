@@ -1,28 +1,28 @@
 import {ref} from "vue";
 import {defineStore} from "pinia";
-import TokenService from "@/services/TokenService";
+import ApiService from "@/core/services/ApiService";
+import JwtService from "@/core/services/JwtService";
 import AuthService from "@/services/AuthService";
+// @ts-ignore
+import ServiceResponse from "@/core/helpers/ServiceResponse";
 
 export interface User {
     name: string;
+    surname?: string;
     email: string;
     password: string;
-    _token: string;
+    api_token?: string;
 }
 
 export const useAuthStore = defineStore("auth", () => {
     const errors = ref({});
     const user = ref<User>({} as User);
-    const isAuthenticated = ref(!!TokenService.getToken());
+    const isAuthenticated = ref(!!JwtService.getToken());
 
     function setAuth(authUser: User) {
         isAuthenticated.value = true;
         user.value = authUser;
         errors.value = {};
-    }
-
-    function getAuth() {
-        return user;
     }
 
     function setError(error: any) {
@@ -33,13 +33,28 @@ export const useAuthStore = defineStore("auth", () => {
         isAuthenticated.value = false;
         user.value = {} as User;
         errors.value = [];
-        TokenService.destroyToken();
+        JwtService.destroyToken();
     }
 
-    function login(credentials: User) {
-        let response = AuthService.login(credentials.email, credentials.password);
-        if (response.success) {
-            console.log(response);
+    // @ts-ignore
+    async function login(credentials: User): ServiceResponse {
+        let loginResponse = await AuthService.login(credentials.email, credentials.password);
+        if (loginResponse.Success) {
+            JwtService.saveToken(loginResponse.Data);
+            let getProfileResponse = await AuthService.getProfile();
+            if (getProfileResponse.Success) {
+                setAuth({
+                    name: getProfileResponse.Data.name,
+                    email: getProfileResponse.Data.email,
+                    password: getProfileResponse.Data.password,
+                });
+
+                return loginResponse;
+            } else {
+                return getProfileResponse;
+            }
+        } else {
+            return loginResponse;
         }
     }
 
@@ -47,12 +62,22 @@ export const useAuthStore = defineStore("auth", () => {
         purgeAuth();
     }
 
+    function register(credentials: User) {
+
+    }
+
+    function forgotPassword(email: string) {
+
+    }
+
+
     return {
         errors,
         user,
         isAuthenticated,
         login,
         logout,
-        setAuth,
+        register,
+        forgotPassword,
     };
 });

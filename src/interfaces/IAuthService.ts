@@ -1,4 +1,4 @@
-import type ServiceResponse from "@/core/ServiceResponse";
+import type ServiceResponse from "@/core/helpers/ServiceResponse";
 
 interface IAuthService {
     login(username: string, password: string): ServiceResponse;
