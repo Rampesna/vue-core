@@ -27,7 +27,7 @@ const config: LayoutConfigTypes = {
       minimize: {
         desktop: {
           enabled: true,
-          default: true,
+          default: false,
           hoverable: true,
         },
       },

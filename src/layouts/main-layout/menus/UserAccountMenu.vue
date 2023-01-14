@@ -340,7 +340,7 @@ export default defineComponent({
 
     const signOut = () => {
       store.logout();
-      router.push({ name: "sign-in" });
+      router.push({ name: "login" });
     };
 
     const setLang = (lang: string) => {
