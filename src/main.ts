@@ -13,13 +13,16 @@ import { initInlineSvg } from "@/core/plugins/inline-svg";
 import { initVeeValidate } from "@/core/plugins/vee-validate";
 
 import "@/core/plugins/prismjs";
-import "toastr";
+import "toastr/build/toastr.min.css";
+// @ts-ignore
+import toastr from "toastr";
 
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
 app.use(ElementPlus);
+app.use(toastr);
 
 ApiService.init(app);
 initApexCharts(app);

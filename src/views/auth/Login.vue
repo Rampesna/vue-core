@@ -7,7 +7,7 @@
             id="kt_login_signin_form"
             @submit="onSubmitLogin"
             :validation-schema="login"
-            :initial-values="{ email: 'admin@demo.com', password: 'demo' }"
+            :initial-values="{ email: '', password: '' }"
         >
             <!--begin::Heading-->
             <div class="text-center mb-10">
@@ -95,23 +95,13 @@
                     class="btn btn-lg btn-primary w-100 mb-5"
                 >
                     <span class="indicator-label"> Giriş Yap </span>
-
-                    <span class="indicator-progress">
-            Please wait...
-            <span
-                class="spinner-border spinner-border-sm align-middle ms-2"
-            ></span>
-          </span>
+                    <span class="indicator-progress">Lütfen bekleyiniz...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
                 </button>
-                <!--end::Submit button-->
-
-
             </div>
-            <!--end::Actions-->
         </VForm>
-        <!--end::Form-->
     </div>
-    <!--end::Wrapper-->
 </template>
 
 <script lang="ts">
@@ -119,8 +109,6 @@ import {defineComponent, ref} from "vue";
 import {ErrorMessage, Field, Form as VForm} from "vee-validate";
 import {useAuthStore, type User} from "@/stores/auth";
 import {useRouter} from "vue-router";
-import Swal from "sweetalert2";
-import * as Yup from "yup";
 // @ts-ignore
 import toastr from "toastr";
 
@@ -152,26 +140,17 @@ export default defineComponent({
 
             // @ts-ignore
             if (loginResponse.success) {
-                router.push({name: "dashboard"});
+                toastr.options.onHidden = function() {
+                    router.push({name: "dashboard"});
+                }
+                toastr.success("Giriş Başarılı, yönlendiriliyorsunuz...");
             } else {
-                toastr.options = {
-                    closeButton: true,
-                    debug: false,
-                    newestOnTop: false,
-                    progressBar: true,
-                    positionClass: "toast-top-right",
-                    preventDuplicates: false,
-                    onclick: null,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    timeOut: "5000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                };
-                toastr.error(loginResponse.message, "Hata");
+                if (submitButton.value) {
+                    submitButton.value!.disabled = false;
+                    submitButton.value.setAttribute("data-kt-indicator", "off");
+                }
+                // @ts-ignore
+                toastr.error(loginResponse.message);
             }
         };
 
