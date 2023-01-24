@@ -4,17 +4,27 @@
 
     <!--begin::Theme mode-->
     <div class="app-navbar-item ms-1 ms-lg-3">
+
+      <!--begin::Menu toggle-->
+      <select class="form-control">
+        <option value="1">Test</option>
+      </select>
+    </div>
+
+    <div class="app-navbar-item ms-1 ms-lg-3">
+
+
       <!--begin::Menu toggle-->
       <a
-        href="#"
-        class="btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px"
-        data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-        data-kt-menu-attach="parent"
-        data-kt-menu-placement="bottom-end"
+          href="#"
+          class="btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px"
+          data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+          data-kt-menu-attach="parent"
+          data-kt-menu-placement="bottom-end"
       >
         <span
-          v-if="themeMode === 'light'"
-          class="svg-icon theme-dark-hide svg-icon-2"
+            v-if="themeMode === 'light'"
+            class="svg-icon theme-dark-hide svg-icon-2"
         >
           <inline-svg src="/media/icons/duotune/general/gen060.svg" />
         </span>

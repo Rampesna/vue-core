@@ -16,7 +16,7 @@ export interface User {
 
 export const useAuthStore = defineStore("auth", () => {
     const errors = ref({});
-    const user = ref<User>({} as User);
+    const user = ref(<User>JwtService.getUser());
     const isAuthenticated = ref(!!JwtService.getToken());
 
     function setAuth(authUser: User) {
@@ -59,11 +59,6 @@ export const useAuthStore = defineStore("auth", () => {
         }
     }
 
-    function getUser(): User {
-        return <User>JwtService.getUser();
-    }
-
-
     function logout() {
         purgeAuth();
     }
@@ -86,6 +81,5 @@ export const useAuthStore = defineStore("auth", () => {
         logout,
         register,
         forgotPassword,
-        getUser,
     };
 });

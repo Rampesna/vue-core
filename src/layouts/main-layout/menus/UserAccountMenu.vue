@@ -351,7 +351,7 @@ export default defineComponent({
     const currentLangugeLocale = computed(() => {
       return countries[i18n.locale.value as keyof typeof countries];
     });
-    const user = store.getUser();
+    const user = store.user
 
     return {
       signOut,
