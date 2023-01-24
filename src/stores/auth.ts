@@ -34,6 +34,7 @@ export const useAuthStore = defineStore("auth", () => {
         user.value = {} as User;
         errors.value = [];
         JwtService.destroyToken();
+
     }
 
     // @ts-ignore

@@ -138,10 +138,13 @@ export default defineComponent({
 
             let loginResponse = await store.login(values);
 
+
             // @ts-ignore
             if (loginResponse.success) {
+              console.log(loginResponse);
                 toastr.options.onHidden = function() {
-                    router.push({name: "dashboard"});
+                    router.push({ name: "dashboard" });
+                  window.location.reload();
                 }
                 toastr.success("Giriş Başarılı, yönlendiriliyorsunuz...");
             } else {

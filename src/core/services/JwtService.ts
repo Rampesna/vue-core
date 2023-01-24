@@ -34,6 +34,7 @@ export const getUser = (): User | null => {
  */
 export const destroyToken = (): void => {
   window.localStorage.removeItem(ID_TOKEN_KEY);
+  window.localStorage.removeItem("user");
 };
 
 export default { getToken, saveToken, destroyToken, saveUser, getUser };
