@@ -143,7 +143,6 @@ export default defineComponent({
             if (loginResponse.success) {
               console.log(loginResponse);
                 toastr.options.onHidden = function() {
-                    router.push({ name: "dashboard" });
                   window.location.reload();
                 }
                 toastr.success("Giriş Başarılı, yönlendiriliyorsunuz...");
